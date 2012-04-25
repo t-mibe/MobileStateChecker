@@ -13,7 +13,13 @@ public class MobileStateCheckService extends Service {
 	// ログ識別用タグ
 	final private String TAG = "MobileStateCheckService";
 	
-	// 
+	// 通信状態を監視するレシーバ
+	PhoneStateListener psl;
+	
+	// 端末の情報にアクセスするクラス
+	TelephonyManager tm;
+	
+	// 通信状態を保存する変数
 	private int ss_old = -1;
 	
 	@Override
@@ -21,18 +27,21 @@ public class MobileStateCheckService extends Service {
 		return null;
 	}
 	
+	// サービス構成時に呼ばれるメソッド
+	@Override
+	public void onCreate() {
+		super.onCreate();
+	}
+	
 	// サービス開始時に呼ばれるメソッド
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-
-		// ログとトーストを出力する
-		new Common().myLogAndToast(this, TAG, "onStartCommand start");
 		
 		// 通信状態を監視するレシーバを準備する
 		setPhoneStateListener();
 		
 		// ログとトーストを出力する
-		new Common().myLogAndToast(this, TAG, "onStartCommand end");
+		new Common().myInfo(this, TAG, "onStartCommand end");
 		
 		return START_STICKY;
 	}
@@ -41,10 +50,10 @@ public class MobileStateCheckService extends Service {
 	private void setPhoneStateListener() {
 		
 		// ログとトーストを出力する
-		new Common().myLogAndToast(this, TAG, "setPhoneStateListener start");
+		new Common().myDebug(this, TAG, "setPhoneStateListener start");
 		
 		// 通信状態監視用のレシーバを初期化する
-		PhoneStateListener psl = new PhoneStateListener() {
+		psl = new PhoneStateListener() {
 			
 			// サービス状態の変化時に呼ばれるメソッド
 			@Override
@@ -56,11 +65,11 @@ public class MobileStateCheckService extends Service {
 		};
 		
 		// 電話情報の受信を開始する
-		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		tm.listen(psl, PhoneStateListener.LISTEN_SERVICE_STATE);
 
 		// ログとトーストを出力する
-		new Common().myLogAndToast(this, TAG, "setPhoneStateListener end");
+		new Common().myDebug(this, TAG, "setPhoneStateListener end");
 	}
 	
 	// サービス状態の変化時に行う処理
@@ -93,7 +102,7 @@ public class MobileStateCheckService extends Service {
 		}
 		
 		// 文字列をログとトーストに出力する
-		new Common().myLogAndToast(this, TAG, str);
+		new Common().myInfo(this, TAG, str);
 	}
 	
 	// サービス終了時に呼ばれるメソッド
@@ -101,7 +110,18 @@ public class MobileStateCheckService extends Service {
 	public void onDestroy() {
 		super.onDestroy();
 		
+		// 通信状態の監視を終了する
+		endPhoneStateListener();
+		
 		// ログとトーストを出力する
-		new Common().myLogAndToast(this, TAG, "onDestroy");
+		new Common().myInfo(this, TAG, "onDestroy");
+	}
+	
+	// 通信状態の監視を終了する
+	private void endPhoneStateListener() {
+		
+		// 電話情報の受信を終了する
+		tm.listen(psl, PhoneStateListener.LISTEN_NONE);
+		
 	}
 }
