@@ -6,6 +6,10 @@ import android.widget.Toast;
 
 public class Common {
 	
+	// ログとトーストに出力する
+	// context: 呼び出すオブジェクトのコンテキスト，thisでだいたいうまくいく
+	// tag    : 呼び出すオブジェクトのタグ
+	// msg    : メッセージの内容
 	public void myLogAndToast(Context context, String tag, String msg) {
 
 		Log.d(tag, msg);
