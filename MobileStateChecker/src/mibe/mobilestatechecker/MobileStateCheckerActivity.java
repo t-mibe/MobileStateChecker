@@ -1,10 +1,10 @@
 package mibe.mobilestatechecker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MobileStateCheckerActivity extends Activity {
@@ -43,9 +43,9 @@ public class MobileStateCheckerActivity extends Activity {
 	private void actionToggleButton(boolean state) {
 		
 		if(state) {
-			Toast.makeText(this, "on", Toast.LENGTH_SHORT).show();
+			startService(new Intent(getBaseContext(),MobileStateCheckService.class));
 		} else {
-			Toast.makeText(this, "off", Toast.LENGTH_SHORT).show();
+			stopService(new Intent(getBaseContext(),MobileStateCheckService.class));
 		}
 	}
 }
