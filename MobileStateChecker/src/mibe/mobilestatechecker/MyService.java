@@ -1,12 +1,18 @@
 package mibe.mobilestatechecker;
 
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-public class Common {
-	
-	
+public class MyService extends Service {
+
+	@Override
+	public IBinder onBind(Intent intent) {
+		return null;
+	}
 	
 	// ログとトーストに出力する（重要度はINFO)
 	// context: 呼び出すオブジェクトのコンテキスト，thisでだいたいうまくいく
