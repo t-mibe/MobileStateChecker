@@ -1,20 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="horizontal" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-	<ToggleButton
-		android:id="@+id/toggleButton"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		/>
 
-	<Button
-		android:id="@+id/resetButton"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@+string/ResetButtonText"
-		/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/serverToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:textOn="@string/ServerToggleButtonTextOn"
+            android:textOff="@string/ServerToggleButtonTextOff"/>
+        
+        <ToggleButton
+            android:id="@+id/airplaneToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:textOn="@string/AirplaneToggleButtonTextOn"
+            android:textOff="@string/AirplaneToggleButtonTextOff"/>
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ResetButtonText" />
+    </LinearLayout>
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonVerbose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/RadioButtonVerboseText" />
+        
+        <RadioButton
+            android:id="@+id/radioButtonDebug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/RadioButtonDebugText" />
+        
+        <RadioButton
+            android:id="@+id/radioButtonInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/RadioButtonInfoText" />
+        
+
+
+        <RadioButton
+            android:id="@+id/radioButtonWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/RadioButtonWarningText" />
+        
+        <RadioButton
+            android:id="@+id/radioButtonError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/RadioButtonErrorText" />
+        
+        <RadioButton
+            android:id="@+id/radioButtonSilent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/RadioButtonSilentText" />
+
+    </RadioGroup>
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="hoge" />
 
 </LinearLayout>

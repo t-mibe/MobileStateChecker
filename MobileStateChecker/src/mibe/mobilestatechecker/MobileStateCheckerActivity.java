@@ -9,8 +9,12 @@ import android.widget.ToggleButton;
 
 public class MobileStateCheckerActivity extends Activity {
 	
-	private ToggleButton tb;
+	// サーバ用トグルボタン
+	private ToggleButton stb;
 	
+	// 機内モード用トグルボタン
+	
+	// アクティビティ作成時に呼ばれるメソッド
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,14 +24,14 @@ public class MobileStateCheckerActivity extends Activity {
 		setToggleButton();
 	}
 	
-	// トグルボタンを押したときの挙動を設定
+	// サーバ用トグルボタンを押したときの挙動を設定
 	private void setToggleButton() {
 		
 		// IDからトグルボタンを取得
-		tb = (ToggleButton)findViewById(R.id.toggleButton);
+		stb = (ToggleButton)findViewById(R.id.serverToggleButton);
 		
 		// トグルボタンに変更があった時の挙動を設定
-		tb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		stb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			// 変更があった時の挙動
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -43,9 +47,22 @@ public class MobileStateCheckerActivity extends Activity {
 	private void actionToggleButton(boolean state) {
 		
 		if(state) {
+			
+			// サービス開始
 			startService(new Intent(getBaseContext(),MobileStateCheckService.class));
 		} else {
+			
+			// サービス終了
 			stopService(new Intent(getBaseContext(),MobileStateCheckService.class));
 		}
+	}
+	
+	// アクティビティ終了時に呼ばれるメソッド
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+		// サービス終了
+		stopService(new Intent(getBaseContext(),MobileStateCheckService.class));
 	}
 }

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">MSC</string>
+	<string name="ServerToggleButtonTextOn">Server ON</string>
+	<string name="ServerToggleButtonTextOff">Server OFF</string>
+	<string name="AirplaneToggleButtonTextOn">Airplame ON</string>
+	<string name="AirplaneToggleButtonTextOff">Airplame OFF</string>
 	<string name="ResetButtonText">Reset</string>
+	<string name="RadioButtonVerboseText">V</string>
+	<string name="RadioButtonDebugText">D</string>
+	<string name="RadioButtonInfoText">I</string>
+	<string name="RadioButtonWarningText">W</string>
+	<string name="RadioButtonErrorText">E</string>
+	<string name="RadioButtonFatalText">F</string>
+	<string name="RadioButtonSilentText">S</string>
 
 </resources>
