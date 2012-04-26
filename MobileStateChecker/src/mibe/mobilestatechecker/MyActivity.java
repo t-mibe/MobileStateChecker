@@ -1,12 +1,17 @@
 package mibe.mobilestatechecker;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
 public class MyActivity extends Activity{
+	
+	private final String TAG = "MyActivity";
 	
 	// ログとトーストに出力する（重要度はINFO)
 	// context: 呼び出すオブジェクトのコンテキスト，thisでだいたいうまくいく
@@ -33,6 +38,16 @@ public class MyActivity extends Activity{
 		
 		ActivityManager am = (ActivityManager) c.getSystemService(Context.ACTIVITY_SERVICE);
 		
+		List<RunningServiceInfo> runningService = am.getRunningServices(Integer.MAX_VALUE);
+		
+		for (RunningServiceInfo i : runningService) {
+			//myDebug(c, TAG, "service: " + i.service.getClassName() + " : " + i.started);
+			if (cls.getName().equals(i.service.getClassName())) {
+				myDebug(c, TAG, "service: " + i.service.getClassName() + " : running");
+				//myDebug(c, TAG, "running");
+				return true;
+			}
+		}
 		
 		return false;
 	}

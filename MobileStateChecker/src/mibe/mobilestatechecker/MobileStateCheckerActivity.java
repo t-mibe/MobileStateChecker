@@ -1,6 +1,5 @@
 package mibe.mobilestatechecker;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,34 +16,34 @@ public class MobileStateCheckerActivity extends MyActivity {
 	private final Context context = this;
 	
 	// サーバ用トグルボタン
-	private ToggleButton stb;
+	ToggleButton stb;
 	
 	// 機内モード用トグルボタン
-	private ToggleButton atb;
+	ToggleButton atb;
 	
 	// アクティビティ作成時に呼ばれるメソッド
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		myDebug(context, TAG, "onCreate");
+		myDebug(context, TAG, "onCreate start");
 
 		// サーバ用トグルボタンを押したときの挙動を設定
-		setToggleButton(stb, false, R.id.serverToggleButton, serverToggleButtonListener);
+		stb = (ToggleButton)findViewById(R.id.serverToggleButton);
+		setToggleButton(stb, isServiceRunning(this, MobileStateCheckService.class), serverToggleButtonListener);
 		
 		// 機内モード用トグルボタンを押したときの挙動を設定
-		setToggleButton(atb, getAirplaneMode(), R.id.airplaneToggleButton, airplaneToggleButtonListener);
+		atb = (ToggleButton)findViewById(R.id.airplaneToggleButton);
+		setToggleButton(atb, false, airplaneToggleButtonListener);
+		
+		myDebug(context, TAG, "onCreate end");
 	}
 	
 	/* トグルボタンを押したときの挙動を設定
 	 * tb  : トグルボタン
 	 * mode: トグルボタンの状態
-	 * id  : トグルボタンのリソースID
 	 * occl: ボタンが押された時の動作 */
-	private void setToggleButton(ToggleButton tb, boolean mode, int id, OnCheckedChangeListener occl) {
-		
-		// IDからトグルボタンを取得
-		tb = (ToggleButton)findViewById(id);
+	private void setToggleButton(ToggleButton tb, boolean mode, OnCheckedChangeListener occl) {
 		
 		// トグルボタンの状態を設定
 		tb.setChecked(mode);
@@ -92,14 +91,10 @@ public class MobileStateCheckerActivity extends MyActivity {
 		
 		myDebug(context, TAG, "onResume");
 		
-		// サーバ用トグルボタンの状態を判定する
+		// サーバの状態をトグルボタンに反映する
+		stb.setChecked(isServiceRunning(context, MobileStateCheckService.class));
 		
 		// 機内モード用トグルボタンの状態を判定する
-	}
-	
-	// 機内モードのOnOffを取得
-	private boolean getAirplaneMode() {
-		return false;
 	}
 	
 	// アクティビティ終了時に呼ばれるメソッド
