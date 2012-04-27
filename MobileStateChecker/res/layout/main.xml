@@ -8,29 +8,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
         <ToggleButton
             android:id="@+id/serverToggleButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:textOn="@string/ServerToggleButtonTextOn"
-            android:textOff="@string/ServerToggleButtonTextOff"/>
-        
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:textOff="@string/ServerToggleButtonTextOff"
+            android:textOn="@string/ServerToggleButtonTextOn" />
+
+
+
+
+
+
         <ToggleButton
             android:id="@+id/airplaneToggleButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:textOn="@string/AirplaneToggleButtonTextOn"
-            android:textOff="@string/AirplaneToggleButtonTextOff"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="0.09"
+            android:textOff="@string/AirplaneToggleButtonTextOff"
+            android:textOn="@string/AirplaneToggleButtonTextOn" />
+
 
         <Button
             android:id="@+id/resetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ResetButtonText" />
-    </LinearLayout>
 
+    </LinearLayout>
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -70,7 +78,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/RadioButtonErrorText" />
-        
+        
+
         <RadioButton
             android:id="@+id/radioButtonSilent"
             android:layout_width="wrap_content"

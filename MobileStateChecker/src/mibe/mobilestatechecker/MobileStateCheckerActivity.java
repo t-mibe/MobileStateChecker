@@ -69,6 +69,7 @@ public class MobileStateCheckerActivity extends MyActivity {
 		}
 	};
 	
+	
 	// 機内モード用トグルボタンが押された時の動作
 	private OnCheckedChangeListener airplaneToggleButtonListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -77,9 +78,11 @@ public class MobileStateCheckerActivity extends MyActivity {
 			if (isChecked) {
 				
 				myDebug(context, TAG, "ap: true");
+				setAirplaneMode(true);
 			} else {
 
 				myDebug(context, TAG, "ap: false");
+				setAirplaneMode(false);
 			}
 		}
 	};
@@ -95,6 +98,7 @@ public class MobileStateCheckerActivity extends MyActivity {
 		stb.setChecked(isServiceRunning(context, MobileStateCheckService.class));
 		
 		// 機内モード用トグルボタンの状態を判定する
+		atb.setChecked(isAirplaneMode());
 	}
 	
 	// アクティビティ終了時に呼ばれるメソッド
