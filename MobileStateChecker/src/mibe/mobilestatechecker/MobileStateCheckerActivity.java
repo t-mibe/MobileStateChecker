@@ -7,74 +7,77 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ToggleButton;
 
+/**
+ * main activity
+ */
 public class MobileStateCheckerActivity extends MyActivity {
 	
-	// ƒƒO—pƒ^ƒO
+	// ï¿½ï¿½ï¿½Oï¿½pï¿½^ï¿½O
 	private final String TAG = "MobileStateCheckerActivity";
 	
-	// ƒƒO—pƒRƒ“ƒeƒLƒXƒg
+	// ï¿½ï¿½ï¿½Oï¿½pï¿½Rï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½g
 	private final Context context = this;
 	
-	// ƒT[ƒo—pƒgƒOƒ‹ƒ{ƒ^ƒ“
+	// ï¿½Tï¿½[ï¿½oï¿½pï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½
 	ToggleButton stb;
 	
-	// ‹@“àƒ‚[ƒh—pƒgƒOƒ‹ƒ{ƒ^ƒ“
+	// ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½pï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½
 	ToggleButton atb;
 	
-	// ƒAƒNƒeƒBƒrƒeƒBì¬‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+	// ï¿½Aï¿½Nï¿½eï¿½Bï¿½rï¿½eï¿½Bï¿½ì¬ï¿½ï¿½ï¿½ÉŒÄ‚Î‚ï¿½éƒï¿½\ï¿½bï¿½h
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		myDebug(context, TAG, "onCreate start");
 
-		// ƒT[ƒo—pƒgƒOƒ‹ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‹““®‚ğİ’è
+		// ï¿½Tï¿½[ï¿½oï¿½pï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½
 		stb = (ToggleButton)findViewById(R.id.serverToggleButton);
 		setToggleButton(stb, isServiceRunning(this, MobileStateCheckService.class), serverToggleButtonListener);
 		
-		// ‹@“àƒ‚[ƒh—pƒgƒOƒ‹ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‹““®‚ğİ’è
+		// ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½pï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½
 		atb = (ToggleButton)findViewById(R.id.airplaneToggleButton);
 		setToggleButton(atb, false, airplaneToggleButtonListener);
 		
 		myDebug(context, TAG, "onCreate end");
 	}
 	
-	/* ƒgƒOƒ‹ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‹““®‚ğİ’è
-	 * tb  : ƒgƒOƒ‹ƒ{ƒ^ƒ“
-	 * mode: ƒgƒOƒ‹ƒ{ƒ^ƒ“‚Ìó‘Ô
-	 * occl: ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Ì“®ì */
+	/* ï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½
+	 * tb  : ï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½
+	 * mode: ï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½Ìï¿½ï¿½
+	 * occl: ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ï¿½ */
 	private void setToggleButton(ToggleButton tb, boolean mode, OnCheckedChangeListener occl) {
 		
-		// ƒgƒOƒ‹ƒ{ƒ^ƒ“‚Ìó‘Ô‚ğİ’è
+		// ï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½Ìï¿½Ô‚ï¿½İ’ï¿½
 		tb.setChecked(mode);
 		
-		// ƒgƒOƒ‹ƒ{ƒ^ƒ“‚É•ÏX‚ª‚ ‚Á‚½‚Ì‹““®‚ğİ’è
+		// ï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½É•ÏXï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½
 		tb.setOnCheckedChangeListener(occl);
 	}
 	
-	// ƒT[ƒo—pƒgƒOƒ‹ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Ì“®ì
+	// ï¿½Tï¿½[ï¿½oï¿½pï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ï¿½
 	private OnCheckedChangeListener serverToggleButtonListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			
-			// ƒ{ƒ^ƒ“‚Ìó‘Ô‚É‡‚í‚¹‚Ä•ªŠò‚·‚é
+			// ï¿½{ï¿½^ï¿½ï¿½ï¿½Ìï¿½Ô‚Éï¿½ï¿½í‚¹ï¿½Ä•ï¿½ï¿½ò‚·‚ï¿½
 			if (isChecked) {
 				
-				// ƒT[ƒrƒXŠJn
+				// ï¿½Tï¿½[ï¿½rï¿½Xï¿½Jï¿½n
 				startService(new Intent(getBaseContext(),MobileStateCheckService.class));
 			} else {
 
-				// ƒT[ƒrƒXI—¹
+				// ï¿½Tï¿½[ï¿½rï¿½Xï¿½Iï¿½ï¿½
 				stopService(new Intent(getBaseContext(),MobileStateCheckService.class));
 			}
 		}
 	};
 	
 	
-	// ‹@“àƒ‚[ƒh—pƒgƒOƒ‹ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Ì“®ì
+	// ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½pï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ï¿½
 	private OnCheckedChangeListener airplaneToggleButtonListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			
-			// ƒ{ƒ^ƒ“‚Ìó‘Ô‚É‡‚í‚¹‚Ä•ªŠò‚·‚é
+			// ï¿½{ï¿½^ï¿½ï¿½ï¿½Ìï¿½Ô‚Éï¿½ï¿½í‚¹ï¿½Ä•ï¿½ï¿½ò‚·‚ï¿½
 			if (isChecked) {
 				
 				myDebug(context, TAG, "ap: true");
@@ -87,27 +90,27 @@ public class MobileStateCheckerActivity extends MyActivity {
 		}
 	};
 	
-	// ƒŒƒWƒ…[ƒ€‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+	// ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ÉŒÄ‚Î‚ï¿½éƒï¿½\ï¿½bï¿½h
 	@Override
 	public void onResume(){
 		super.onResume();
 		
 		myDebug(context, TAG, "onResume");
 		
-		// ƒT[ƒo‚Ìó‘Ô‚ğƒgƒOƒ‹ƒ{ƒ^ƒ“‚É”½‰f‚·‚é
+		// ï¿½Tï¿½[ï¿½oï¿½Ìï¿½Ô‚ï¿½ï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½É”ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½
 		stb.setChecked(isServiceRunning(context, MobileStateCheckService.class));
 		
-		// ‹@“àƒ‚[ƒh—pƒgƒOƒ‹ƒ{ƒ^ƒ“‚Ìó‘Ô‚ğ”»’è‚·‚é
+		// ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½hï¿½pï¿½gï¿½Oï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½Ìï¿½Ô‚ğ”»’è‚·ï¿½ï¿½
 		atb.setChecked(isAirplaneMode());
 	}
 	
-	// ƒAƒNƒeƒBƒrƒeƒBI—¹‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+	// ï¿½Aï¿½Nï¿½eï¿½Bï¿½rï¿½eï¿½Bï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ÉŒÄ‚Î‚ï¿½éƒï¿½\ï¿½bï¿½h
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		myDebug(context, TAG, "onDestroy");
 		
-		// ƒT[ƒrƒXI—¹
+		// ï¿½Tï¿½[ï¿½rï¿½Xï¿½Iï¿½ï¿½
 		stopService(new Intent(getBaseContext(),MobileStateCheckService.class));
 	}
 }
